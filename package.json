@@ -1,0 +1,18 @@
+{
+  "name": "nodebb-plugin-ns-points-techo",
+  "version": "0.0.0",
+  "description": "points for nodebb",
+  "main": "plugin.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dontpanic92/nodebb-plugin-ns-points-techo.git"
+  },
+  "author": "dontpanic92",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/dontpanic92/nodebb-plugin-ns-points-techo/issues"
+  }
+}
