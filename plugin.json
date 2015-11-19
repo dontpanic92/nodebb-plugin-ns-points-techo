@@ -1,0 +1,73 @@
+{
+  "id": "nodebb-plugin-ns-points",
+  "name": "NodeBB Points",
+  "description": "Additional metrics for User Profiles. It's like experience in video games. Plugin is good for gamification of your board.",
+  "url": "https://github.com/NicolasSiver/nodebb-plugin-ns-points",
+  "library": "./plugin.js",
+  "hooks": [
+    {
+      "hook": "action:post.save",
+      "method": "hooks.actions.postSave"
+    },
+    {
+      "hook": "action:topic.save",
+      "method": "hooks.actions.topicSave"
+    },
+    {
+      "hook": "action:post.upvote",
+      "method": "hooks.actions.postUpvote"
+    },
+    {
+      "hook": "action:post.unvote",
+      "method": "hooks.actions.postUnvote"
+    },
+    {
+      "hook": "filter:admin.header.build",
+      "method": "hooks.filters.menuAdmin"
+    },
+    {
+      "hook": "filter:navigation.available",
+      "method": "hooks.filters.navigation"
+    },
+    {
+      "hook": "filter:post.get",
+      "method": "hooks.filters.postGet"
+    },
+    {
+      "hook": "filter:post.getPosts",
+      "method": "hooks.filters.postGetPosts"
+    },
+    {
+      "hook": "filter:topic.get",
+      "method": "hooks.filters.topicGet"
+    },
+    {
+      "hook": "filter:user.account",
+      "method": "hooks.filters.account"
+    },
+    {
+      "hook": "static:app.load",
+      "method": "hooks.statics.load"
+    },
+    {
+			"hook": "filter:widgets.getWidgets",
+      "method": "hooks.filters.defineWidgets"
+		},
+    {
+			"hook": "filter:widget.render:personal_profile",
+      "method": "hooks.filters.renderPersonalProfile"
+		}
+  ],
+  "less": [
+    "less/client.less"
+  ],
+  "scripts": [
+    "public/js/ranking.js",
+    "public/js/overview.js"
+  ],
+  "staticDirs": {
+    "templates": "./public/templates",
+    "js": "./public/js"
+  },
+  "templates": "./public/templates"
+}
