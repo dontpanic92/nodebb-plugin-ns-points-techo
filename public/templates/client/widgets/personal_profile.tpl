@@ -32,7 +32,7 @@
 			<!-- IF picture -->
 			<img src="{picture}" class="pw-main" alt="" />
 			<!-- ELSE -->
-			<div class="pw-main pw-user-icon" style="background-color: {icon:bgColor};">{icon:text}</div>
+			<div class="user-icon" style="background-color: {icon:bgColor};">{icon:text}</div>
 			<!-- ENDIF picture -->
 		</div>
 		<div class="pw-username">

@@ -35,7 +35,7 @@
 
                 router.get(pluginUri, middleware.admin.buildHeader, renderAdmin);
                 router.get(apiUri, renderAdmin);
-
+                
                 //Client page
                 router.get('/points', middleware.buildHeader, renderClient);
                 router.get('/api/points', renderClient);
