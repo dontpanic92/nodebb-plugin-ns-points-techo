@@ -148,31 +148,28 @@
         }
 
         if (!helper.checkLoggedIn()) {
-            render({loggedIn: false});
+            render({ loggedIn: false });
         } else {
-            user.getUserFields(widget.uid, ['username', 'userslug', 'picture', 'status', 
-            'reputation', 'postcount', 'followerCount', 'followingCount'], function (err, data) {
-                if (err) {
-                    return callback(err);
-                }
-                data.loggedIn = true;
-                database.getPoints(widget.uid, function(err, points) {
+            user.getUserFields(widget.uid, ['username', 'userslug', 'picture', 'status',
+                'reputation', 'postcount', 'followerCount', 'followingCount'], function (err, data) {
                     if (err) {
                         return callback(err);
                     }
-                    data.points = points;
-                    helper.checkCanSignIn(widget.uid, function(err, canSignIn){
-                        data.canSignIn = canSignIn;   
-                        database.getContinDays(widget.uid, function(err, conDays){
+                    data.loggedIn = true;
+                    database.getPoints(widget.uid, function (err, points) {
+                        if (err) {
+                            return callback(err);
+                        }
+                        data.points = points;
+                        helper.getSignInTsAndContinDays(widget.uid, function (err, signInData) {
                             if (err)
                                 return callback(err);
-                            
-                            data.continDays = conDays || 0;
+                            data.canSignIn = signInData.canSignIn;
+                            data.continDays = signInData.continDays;
                             render(data);
                         });
                     });
                 });
-            });
         }
     };
 

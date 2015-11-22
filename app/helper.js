@@ -8,26 +8,33 @@
         return !(parseInt(uid, 10) == 0);
     }
 
-    Helper.checkCanSignIn = function (uid, callback) {
+    Helper.getSignInTsAndContinDays = function (uid, callback) {
         if (!Helper.checkLoggedIn()) {
             return callback(null, false);
         }
         
-        database.getSignInTimestamp(uid, function (err, data) {
+        database.getSignInTsAndContinDays(uid, function (err, data) {
             if (err) {
                 return callback(err);
             }
             
-            console.log(data);
-            if (data) {
-                var lastSignTime = moment(data);
+            var cb_data = {};
+            if (data.signin_timestamp) {
+                var lastSignTime = moment(data.signin_timestamp);
                 var now = moment();
-                if (!lastSignTime.isBefore(now, 'day')) {
-                    return callback(null, false);
-                }
+                cb_data.canSignIn = lastSignTime.isBefore(now, 'day');
+                cb_data.continDays = cb_data.canSignIn ? (now.subtract(1, 'day').isSame(lastSignTime, 'day') 
+                                     ? data.contin_days : 0) : data.contin_days;
+                
+            } else {
+                cb_data.canSignIn = true;
+                cb_data.continDays = 0;
             }
             
-            return callback(null, true);
+            console.log(data);
+            console.log(cb_data);
+            
+            return callback(null, cb_data);
         });
     };
 

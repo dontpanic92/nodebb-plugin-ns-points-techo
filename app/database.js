@@ -34,8 +34,16 @@
         db.getObjectField(signInNamepsace + uid, "contin_days", done);
     }
     
+    Database.getSignInTsAndContinDays = function(uid, done) {
+        db.getObjectFields(signInNamepsace + uid, ["signin_timestamp", "contin_days"], done);
+    }
+    
     Database.incrContinDays = function(uid, done) {
         db.incrObjectFieldBy(signInNamepsace + uid, "contin_days", 1, done);
+    }
+    
+    Database.oneContinDays = function(uid, done) {
+        db.setObjectField(signInNamepsace + uid, "contin_days", 1, done);
     }
 
     Database.getUsers = function (limit, done) {

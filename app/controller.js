@@ -46,6 +46,8 @@
 
 
         database.getSignInTimestamp(req.uid, function (err, data) {
+            var incrContin = false;
+
             if (err) {
                 return failed(err);
             }
@@ -56,6 +58,10 @@
                 if (!lastSignTime.isBefore(now, 'day')) {
                     return failed();
                 }
+
+                if (now.subtract(1, 'day').isSame(lastSignTime, 'day')) {
+                    incrContin = true;
+                }
             }
 
             database.setSignInTimestamp(req.uid, function (err) {
@@ -64,12 +70,22 @@
                         return failed(error);
                     }
 
-                    database.incrContinDays(req.uid, function (err) {
-                        if (err)
-                            return failed(err);
 
-                        return succeeded(points);
-                    });
+                    if (incrContin) {
+                        database.incrContinDays(req.uid, function (err) {
+                            if (err)
+                                return failed(err);
+
+                            return succeeded(points);
+                        });
+                    } else {
+                        database.oneContinDays(req.uid, function (err) {
+                            if (err)
+                                return failed(err);
+                            
+                            return succeeded(points);
+                        });
+                    }
                 });
             });
         });
