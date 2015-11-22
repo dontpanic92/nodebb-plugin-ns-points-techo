@@ -31,9 +31,6 @@
                 cb_data.continDays = 0;
             }
             
-            console.log(data);
-            console.log(cb_data);
-            
             return callback(null, cb_data);
         });
     };
