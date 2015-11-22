@@ -32,7 +32,7 @@
 
     Controller.signIn = function (req, res, done) {
         function failed(err) {
-            res.status(500).send("Failed");
+            res.status(400).send("Failed");
         }
 
         function succeeded(points) {
